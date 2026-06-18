@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sakurako — Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --sakura-petal: #ffe4ec;
+      --sakura-pink: #f8a5b8;
+      --sakura-deep: #e87a93;
+      --sakura-blush: #fff0f3;
+      --sakura-cream: #fefaf7;
+      --bg: #fef9f4;
+      --surface: #fffdf9;
+      --text: #3d2a2e;
+      --text-muted: #8a6e74;
+      --accent: #e07086;
+      --accent-light: #fddde4;
+      --accent-glow: #fccdd8;
+      --border-soft: #f5e4e8;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 2px 20px rgba(224, 112, 134, 0.08);
+      --shadow-hover: 0 8px 30px rgba(224, 112, 134, 0.14);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Falling petals ── */
+    .petals-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -10%;
+      opacity: 0;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+      5% {
+        opacity: 0.7;
+      }
+      90% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(105vh) rotate(720deg) translateX(var(--drift));
+        opacity: 0;
+      }
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: rgba(254,249,244,0.78);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo::before {
+      content: '🌸';
+      font-size: 1.15rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ── Sections ── */
+    section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 32px;
+    }
+
+    .hero {
+      padding-top: 200px;
+      padding-bottom: 140px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing: -1.4px;
+      line-height: 1.12;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero h1 span::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: var(--accent-glow);
+      border-radius: 4px;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .hero .tagline {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-light), var(--sakura-petal));
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 7px 22px;
+      border-radius: 100px;
+      letter-spacing: 0.3px;
+      border: 1px solid var(--accent-glow);
+      margin-bottom: 20px;
+    }
+
+    /* ── Section headings ── */
+    .section-label {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-heading {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      margin-bottom: 28px;
+      line-height: 1.2;
+    }
+
+    /* ── Cards ── */
+    .card-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card-grid.cols-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px 26px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-soft);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '🌸';
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 1.3rem;
+      opacity: 0.12;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-glow);
+    }
+
+    .card:hover::before {
+      opacity: 0.35;
+      transform: scale(1.2) rotate(-12deg);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      line-height: 1.55;
+    }
+
+    .card .year {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    /* ── Skills ── */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-tag {
+      background: var(--surface);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 100px;
+      padding: 9px 22px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      cursor: default;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent-glow);
+      background: var(--sakura-blush);
+      transform: translateY(-2px);
+    }
+
+    /* ── Contact ── */
+    .contact-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .contact-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-bottom: 2px solid var(--accent-light);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .contact-links a:hover {
+      border-color: var(--accent);
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 56px 32px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    footer::before {
+      content: '🌸';
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav {
+        padding: 14px 20px;
+      }
+      .nav-links {
+        gap: 16px;
+      }
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      .card-grid.cols-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ FALLING PETALS ═══════════════ -->
+<div class="petals-container" id="petals"></div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <div class="logo">Sakurako</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <span class="badge">AI &</span>
+  <h1>Hi, I'm <span>Sakurako</span></h1>
+  <p class="tagline">
+    Working at AI&, where I help shape the future of artificial intelligence through thoughtful design and engineering.
+  </p>
+</section>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section id="about">
+  <p class="section-label">About</p>
+  <h2 class="section-heading">Building things at the intersection of AI and&nbsp;people</h2>
+  <p style="color:var(--text-muted); font-size:1.05rem; max-width:600px; line-height:1.7;">
+    I'm passionate about creating intuitive, human-centered experiences powered by AI. At <strong>AI&</strong> I collaborate with an amazing team to push the boundaries of what intelligent systems can do — always with real people at the center.
+  </p>
+</section>
+
+<!-- ═══════════════ WORK ═══════════════ -->
+<section id="work">
+  <p class="section-label">Work</p>
+  <h2 class="section-heading">Experience &amp; Highlights</h2>
+  <div class="card-grid cols-2">
+    <div class="card">
+      <div class="year">2024 — Present</div>
+      <h3>AI&</h3>
+      <p>Contributing to cutting-edge AI products and shaping the next generation of intelligent tools.</p>
+    </div>
+    <div class="card">
+      <div class="year">2022 — 2024</div>
+      <h3>Previous Role</h3>
+      <p>Worked across design and engineering to deliver user-facing features loved by millions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SKILLS ═══════════════ -->
+<section id="skills">
+  <p class="section-label">Skills</p>
+  <h2 class="section-heading">What I work with</h2>
+  <div class="skill-tags">
+    <span class="skill-tag">AI / ML</span>
+    <span class="skill-tag">Product Design</span>
+    <span class="skill-tag">Frontend Engineering</span>
+    <span class="skill-tag">User Research</span>
+    <span class="skill-tag">Prototyping</span>
+    <span class="skill-tag">Systems Thinking</span>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section id="contact">
+  <p class="section-label">Contact</p>
+  <h2 class="section-heading">Let's connect</h2>
+  <p style="color:var(--text-muted); margin-bottom:24px;">
+    I'm always happy to chat about AI, design, or interesting projects.
+  </p>
+  <div class="contact-links">
+    <a href="mailto:hello@sakurako.dev">Email</a>
+    <a href="https://github.com">GitHub</a>
+    <a href="https://linkedin.com">LinkedIn</a>
+    <a href="https://twitter.com">X / Twitter</a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Sakurako &middot; Built with care
+</footer>
+
+<script>
+const petalColors = ['#fddde4', '#ffe4ec', '#f8a5b8', '#f5c6d0'];
+
+function createPetal() {
+  const container = document.getElementById('petals');
+  if (!container) return;
+  const petal = document.createElement('span');
+  petal.className = 'petal';
+  const size = Math.random() * 10 + 8;
+  const left = Math.random() * 100;
+  const duration = Math.random() * 6 + 8;
+  const delay = Math.random() * 3;
+  const color = petalColors[Math.floor(Math.random() * petalColors.length)];
+  const drift = (Math.random() - 0.5) * 200;
+
+  petal.style.cssText = `
+    width: ${size}px;
+    height: ${size}px;
+    left: ${left}%;
+    background: ${color};
+    border-radius: 50% 0 50% 0;
+    animation-duration: ${duration}s;
+    animation-delay: -${delay}s;
+    --drift: ${drift}px;
+    opacity: 0.65;
+  `;
+
+  container.appendChild(petal);
+  setTimeout(() => petal.remove(), (duration + delay + 1) * 1000);
+}
+
+for (let i = 0; i < 30; i++) setTimeout(createPetal, i * 250);
+setInterval(createPetal, 600);
+
+// Gentle reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('section').forEach(sec => {
+  sec.style.opacity = '0';
+  sec.style.transform = 'translateY(20px)';
+  sec.style.transition = 'opacity 0.7s ease-out, transform 0.7s ease-out';
+  observer.observe(sec);
+});
+</script>
+
+</body>
+</html>
