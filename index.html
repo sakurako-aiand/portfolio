@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sakurako — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -36,10 +39,10 @@
     }
 
     body {
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'DM Sans', 'Noto Sans JP', 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -97,10 +100,11 @@
     }
 
     .logo {
-      font-size: 1.25rem;
+      font-family: 'Playfair Display', 'Noto Serif JP', Georgia, serif;
+      font-size: 1.3rem;
       font-weight: 700;
       color: var(--accent);
-      letter-spacing: -0.3px;
+      letter-spacing: -0.01em;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -120,8 +124,9 @@
     .nav-links a {
       text-decoration: none;
       color: var(--text-muted);
-      font-size: 0.925rem;
+      font-size: 0.9rem;
       font-weight: 500;
+      letter-spacing: 0.01em;
       transition: color 0.2s;
     }
 
@@ -143,20 +148,21 @@
     }
 
     .hero h1 {
+      font-family: 'Playfair Display', 'Noto Serif JP', Georgia, serif;
       font-size: 3.8rem;
       font-weight: 700;
-      letter-spacing: -1.4px;
-      line-height: 1.12;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
       margin-bottom: 16px;
       color: var(--text);
     }
 
-    .hero h1 span {
+    .hero-name {
       color: var(--accent);
       position: relative;
+      display: inline-block;
     }
-
-    .hero h1 span::after {
+    .hero-name::after {
       content: '';
       position: absolute;
       bottom: 4px;
@@ -167,6 +173,118 @@
       border-radius: 4px;
       z-index: -1;
       opacity: 0.6;
+      animation: underlineGrow 0.8s ease-out 1.2s both;
+    }
+    @keyframes underlineGrow {
+      from { transform: scaleX(0); transform-origin: left; }
+      to   { transform: scaleX(1); transform-origin: left; }
+    }
+
+    .hero-name-letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px) scale(0.7);
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, gentleFloat 3s ease-in-out infinite;
+    }
+    .friends-section {
+      margin-top: 32px;
+      position: relative;
+      z-index: 10;
+    }
+    .friends-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+      opacity: 0.7;
+    }
+    .friends-input-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 100px;
+      padding: 6px 6px 6px 18px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .friends-input-wrap:focus-within {
+      border-color: var(--accent-glow);
+      box-shadow: 0 2px 16px rgba(224,112,134,0.1);
+    }
+    .friends-input {
+      border: none;
+      background: transparent;
+      font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+      font-size: 0.88rem;
+      color: var(--text);
+      width: 200px;
+      outline: none;
+    }
+    .friends-input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+    .friends-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-light), var(--sakura-petal));
+      color: var(--accent);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .friends-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 2px 12px rgba(224,112,134,0.2);
+    }
+
+    .floating-friends {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 200px;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .friend-bubble {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--accent-light);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+      box-shadow: 0 2px 12px rgba(224,112,134,0.1);
+      white-space: nowrap;
+      animation: friendFloat 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes friendFloat {
+      0%, 100% { transform: translate(0, 0) rotate(var(--r)); opacity: 0.85; }
+      25% { transform: translate(15px, -12px) rotate(calc(var(--r) + 2deg)); opacity: 0.95; }
+      50% { transform: translate(-8px, 8px) rotate(calc(var(--r) - 1deg)); opacity: 0.75; }
+      75% { transform: translate(10px, 5px) rotate(calc(var(--r) + 1deg)); opacity: 0.9; }
+    }
+
+    @keyframes popIn {
+      0%   { opacity: 0; transform: translateY(20px) scale(0.7); }
+      60%  { opacity: 1; transform: translateY(-4px) scale(1.08); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-4px) scale(1.02); }
     }
 
     .hero .tagline {
@@ -190,20 +308,22 @@
 
     /* ── Section headings ── */
     .section-label {
+      font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
       text-transform: uppercase;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 2px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       color: var(--accent);
       margin-bottom: 8px;
     }
 
     .section-heading {
+      font-family: 'Playfair Display', 'Noto Serif JP', Georgia, serif;
       font-size: 2.25rem;
       font-weight: 700;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.01em;
       margin-bottom: 28px;
-      line-height: 1.2;
+      line-height: 1.15;
     }
 
     /* ── Cards ── */
@@ -216,7 +336,38 @@
       grid-template-columns: 1fr 1fr;
     }
 
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    #work {
+      max-width: 100%;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+    #work .section-label,
+    #work .section-heading {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @media (min-width: 1280px) {
+      #work {
+        padding-left: 80px;
+        padding-right: 80px;
+      }
+    }
+
+    .work-grid .card {
+      padding: 24px 20px;
+    }
+
     .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
       background: var(--surface);
       border-radius: var(--radius);
       padding: 28px 26px;
@@ -239,20 +390,188 @@
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--accent-glow);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(224,112,134,0.22), 0 0 0 1px rgba(224,112,134,0.25);
+      border-color: var(--accent);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent), var(--sakura-pink));
+      border-radius: var(--radius) 0 0 var(--radius);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .card:hover::after {
+      opacity: 1;
     }
 
     .card:hover::before {
-      opacity: 0.35;
-      transform: scale(1.2) rotate(-12deg);
+      opacity: 0.45;
+      transform: scale(1.3) rotate(-15deg);
+    }
+
+    /* ── Card Logos ── */
+    .card-logo {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .card:hover .card-logo {
+      transform: scale(1.1);
+      transition: transform 0.25s;
+    }
+    .logo-tiyu { background: linear-gradient(135deg, #e87a93, #e07086); }
+    .logo-jva { background: linear-gradient(135deg, #c084fc, #a855f7); }
+    .logo-ai { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+    .logo-linkedin { background: linear-gradient(135deg, #38bdf8, #0ea5e9); }
+
+    /* ── Card Header Visual ── */
+    .card-header {
+      border-radius: 13px 13px 0 0;
+      height: 90px;
+      margin: -28px -26px 14px -26px;
+      position: relative;
+      overflow: hidden;
+      pointer-events: none;
+      transition: filter 0.35s ease, transform 0.35s ease;
+    }
+    .card:hover .card-header {
+      filter: brightness(1.1) saturate(1.15);
+      transform: scale(1.02);
+    }
+    .card .card-logo {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 0;
+      margin-top: -12px;
+    }
+    .card:hover .card-logo {
+      transform: scale(1.12);
+      transition: transform 0.25s;
+    }
+
+    .header-tiyu {
+      background:
+        radial-gradient(circle at 22% 35%, rgba(255,190,200,0.35) 0%, transparent 40%),
+        radial-gradient(circle at 78% 22%, rgba(248,165,184,0.30) 0%, transparent 35%),
+        radial-gradient(circle at 55% 75%, rgba(255,220,230,0.25) 0%, transparent 45%),
+        radial-gradient(circle at 15% 82%, rgba(232,122,147,0.20) 0%, transparent 30%),
+        radial-gradient(circle at 88% 65%, rgba(255,225,235,0.20) 0%, transparent 35%),
+        linear-gradient(135deg, #fff8fb, #fdf0f4, #ffe4ec);
+    }
+    .header-tiyu::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,182,193,0.25) 1.5px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,182,193,0.15) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,200,210,0.20) 2px, transparent 2px);
+      background-size: 24px 24px, 18px 18px, 32px 32px;
+      background-position: 0 0, 8px 12px, 16px 4px;
+    }
+    .header-tiyu::after {
+      content: '';
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.45);
+      filter: blur(8px);
+      border-radius: 50%;
+    }
+
+    .header-jva {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(192,132,252,0.28) 0%, transparent 38%),
+        radial-gradient(circle at 75% 25%, rgba(250,204,21,0.22) 0%, transparent 30%),
+        radial-gradient(circle at 60% 80%, rgba(216,180,254,0.24) 0%, transparent 40%),
+        radial-gradient(circle at 35% 85%, rgba(253,224,71,0.18) 0%, transparent 35%),
+        linear-gradient(135deg, #fefce8, #fef3c7, #edd5f5);
+    }
+    .header-jva::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        radial-gradient(circle, rgba(192,132,252,0.20) 1.8px, transparent 1.8px);
+      background-size: 22px 22px;
+    }
+    .header-jva::after {
+      content: '';
+      position: absolute;
+      top: 10px; right: 40px;
+      width: 22px; height: 22px;
+      border: 2px solid rgba(192,132,252,0.25);
+      border-radius: 50%;
+      transform: rotate(15deg);
+    }
+
+    .header-ai {
+      background:
+        radial-gradient(circle at 25% 30%, rgba(96,165,250,0.22) 0%, transparent 35%),
+        radial-gradient(circle at 70% 20%, rgba(59,130,246,0.18) 0%, transparent 30%),
+        radial-gradient(circle at 80% 75%, rgba(139,92,246,0.14) 0%, transparent 38%),
+        radial-gradient(circle at 15% 75%, rgba(34,211,238,0.15) 0%, transparent 28%),
+        linear-gradient(135deg, #0f172a, #172554, #1e3a8a);
+    }
+    .header-ai::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(96,165,250,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96,165,250,0.06) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .header-ai::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 60px; height: 60px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(96,165,250,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .header-linkedin {
+      background:
+        radial-gradient(circle at 30% 30%, rgba(186,230,253,0.35) 0%, transparent 38%),
+        radial-gradient(circle at 70% 25%, rgba(147,197,253,0.25) 0%, transparent 32%),
+        radial-gradient(circle at 55% 80%, rgba(240,249,255,0.30) 0%, transparent 40%),
+        radial-gradient(circle at 20% 75%, rgba(191,219,254,0.20) 0%, transparent 35%),
+        linear-gradient(135deg, #f0f9ff, #e0f2fe, #bae6fd);
+    }
+    .header-linkedin::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        radial-gradient(circle, rgba(59,130,246,0.12) 1.5px, transparent 1.5px),
+        radial-gradient(circle, rgba(96,165,250,0.10) 1px, transparent 1px);
+      background-size: 26px 26px, 16px 16px;
+      background-position: 0 0, 10px 8px;
+    }
+    .header-linkedin::after {
+      content: '';
+      position: absolute;
+      top: 14px; left: 14px;
+      width: 32px; height: 32px;
+      border: 2px solid rgba(59,130,246,0.15);
+      border-radius: 50%;
     }
 
     .card h3 {
-      font-size: 1.15rem;
+      font-family: 'Playfair Display', 'Noto Serif JP', Georgia, serif;
+      font-size: 1.2rem;
       font-weight: 700;
       margin-bottom: 6px;
+      letter-spacing: -0.01em;
     }
 
     .card p {
@@ -266,6 +585,19 @@
       color: var(--accent);
       font-weight: 600;
       margin-bottom: 8px;
+    }
+    .card-hint {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 10px;
+      opacity: 0.5;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .card:hover .card-hint {
+      opacity: 1;
+      transform: translateX(4px);
     }
 
     /* ── Skills ── */
@@ -314,6 +646,334 @@
       border-color: var(--accent);
     }
 
+    /* ── Language Toggle ── */
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 100px;
+      padding: 4px 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin-left: 16px;
+      font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+    }
+    .lang-toggle:hover {
+      border-color: var(--accent-glow);
+    }
+    .lang-toggle .lang-btn {
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .lang-toggle .lang-btn.active {
+      background: linear-gradient(135deg, var(--accent-light), var(--sakura-petal));
+      color: var(--accent);
+    }
+
+    /* ── Languages Section ── */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .lang-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-soft);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .lang-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-glow);
+    }
+    .lang-flag {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .lang-name {
+      font-family: 'Playfair Display', 'Noto Serif JP', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .lang-native {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-light), var(--sakura-petal));
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--accent-glow);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Hobbies Mini-Games ── */
+    .hobby-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-soft);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .hobby-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-glow);
+    }
+    .hobby-card h3 {
+      font-family: 'Playfair Display', 'Noto Serif JP', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.01em;
+    }
+    .hobby-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .hobby-card .game-box {
+      background: #fdf7fa;
+      border-radius: var(--radius-sm);
+      border: 1px dashed var(--accent-light);
+      overflow: hidden;
+      display: block;
+    }
+    .hobby-card .game-box canvas {
+      display: block;
+      width: 100%;
+      height: 180px;
+      cursor: default;
+    }
+    .scrap-upload {
+      display: flex;
+      justify-content: center;
+      padding: 12px 0 4px;
+    }
+    .scrap-upload-btn {
+      font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: transparent;
+      border: 1.5px dashed var(--accent-light);
+      border-radius: 100px;
+      padding: 7px 22px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      letter-spacing: 0.02em;
+    }
+    .scrap-upload-btn:hover {
+      background: var(--sakura-blush);
+      border-style: solid;
+      border-color: var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    /* ── Timeline ── */
+    .timeline-wrapper {
+      position: relative;
+      margin-top: 10px;
+    }
+    .timeline-wrapper::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-glow), var(--accent), var(--accent-glow));
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 0 32px 40px 32px;
+      box-sizing: border-box;
+    }
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+      padding-right: 44px;
+      padding-left: 0;
+    }
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      text-align: left;
+      padding-left: 44px;
+    }
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+    .timeline-dot {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: var(--surface);
+      border: 3px solid var(--accent);
+      border-radius: 50%;
+      top: 2px;
+      z-index: 2;
+      box-shadow: 0 0 0 4px var(--bg);
+    }
+    .timeline-item:nth-child(odd) .timeline-dot {
+      right: -8px;
+    }
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: -8px;
+    }
+    .timeline-age {
+      font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .timeline-place {
+      font-family: 'Playfair Display', 'Noto Serif JP', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .timeline-item:nth-child(odd) .timeline-place {
+      justify-content: flex-end;
+    }
+    .timeline-place .place-name {
+      transition: transform 0.25s ease, font-weight 0.2s ease, color 0.2s ease;
+      display: inline-block;
+      cursor: default;
+    }
+    .timeline-place .place-name:hover {
+      transform: scale(1.08);
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .timeline-flag {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .timeline-photo {
+      margin: 10px 0 12px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(224,112,134,0.08);
+      border: 1px solid var(--border-soft);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .timeline-photo img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .timeline-photo:hover img {
+      transform: scale(1.04);
+    }
+    .globe-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 900px;
+      z-index: 0;
+      pointer-events: auto;
+      opacity: 0.30;
+      cursor: grab;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: none;
+    }
+    .globe-box:active, .globe-box.dragging {
+      cursor: grabbing;
+    }
+    .globe-box canvas {
+      width: 900px;
+      height: 900px;
+    }
+    #journey {
+      position: relative;
+      overflow: hidden;
+    }
+    #journey .section-label,
+    #journey .section-heading,
+    #journey .timeline-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 640px) {
+      .timeline-wrapper::before {
+        left: 8px;
+      }
+      .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left !important;
+        padding-left: 36px !important;
+        padding-right: 0 !important;
+      }
+      .timeline-item:nth-child(odd) .timeline-dot,
+      .timeline-item:nth-child(even) .timeline-dot {
+        left: 0;
+        right: auto;
+      }
+      .timeline-item:nth-child(odd) .timeline-place {
+        justify-content: flex-start;
+      }
+      .globe-box {
+        width: 420px;
+        height: 420px;
+        opacity: 0.22;
+      }
+      .globe-box canvas {
+        width: 420px;
+        height: 420px;
+      }
+    }
+
     /* ── Footer ── */
     footer {
       text-align: center;
@@ -332,6 +992,15 @@
     }
 
     /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .work-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .work-grid .card {
+        min-width: auto;
+      }
+    }
+
     @media (max-width: 640px) {
       nav {
         padding: 14px 20px;
@@ -345,6 +1014,39 @@
       .card-grid.cols-2 {
         grid-template-columns: 1fr;
       }
+      .hobby-card {
+        grid-column: 1 / -1 !important;
+      }
+      .lang-grid {
+        grid-template-columns: 1fr;
+      }
+      #work {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .work-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        padding-bottom: 8px;
+      }
+      .work-grid::-webkit-scrollbar {
+        height: 6px;
+      }
+      .work-grid::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .work-grid::-webkit-scrollbar-thumb {
+        background: var(--accent-light);
+        border-radius: 10px;
+      }
+      .work-grid .card {
+        flex: 0 0 280px;
+        scroll-snap-align: start;
+        min-width: 280px;
+      }
     }
   </style>
 </head>
@@ -357,80 +1059,246 @@
 <nav>
   <div class="logo">Sakurako</div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about" data-i18n="nav.about">About</a></li>
+    <li><a href="#work" data-i18n="nav.work">Work</a></li>
+    <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+    <li><a href="#languages" data-i18n="nav.languages">Languages</a></li>
+    <li><a href="#hobbies" data-i18n="nav.hobbies">Hobbies</a></li>
+    <li><a href="#journey" data-i18n="nav.journey">Journey</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
   </ul>
+  <div class="lang-toggle" id="langToggle" role="button" aria-label="Switch language">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="ja">JP</button>
+  </div>
 </nav>
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero">
-  <span class="badge">AI &</span>
-  <h1>Hi, I'm <span>Sakurako</span></h1>
-  <p class="tagline">
-    Working at AI&, where I help shape the future of artificial intelligence through thoughtful design and engineering.
+  <h1>
+    <span class="hero-name">
+      <span class="hero-name-letter" style="animation-delay:0.0s">S</span><span class="hero-name-letter" style="animation-delay:0.05s">a</span><span class="hero-name-letter" style="animation-delay:0.10s">k</span><span class="hero-name-letter" style="animation-delay:0.15s">u</span><span class="hero-name-letter" style="animation-delay:0.20s">r</span><span class="hero-name-letter" style="animation-delay:0.25s">a</span><span class="hero-name-letter" style="animation-delay:0.30s">k</span><span class="hero-name-letter" style="animation-delay:0.35s">o</span><span class="hero-name-letter" style="animation-delay:0.42s">&nbsp;</span><span class="hero-name-letter" style="animation-delay:0.48s">E</span><span class="hero-name-letter" style="animation-delay:0.53s">s</span><span class="hero-name-letter" style="animation-delay:0.58s">a</span><span class="hero-name-letter" style="animation-delay:0.63s">k</span><span class="hero-name-letter" style="animation-delay:0.68s">a</span>
+    </span>
+  </h1>
+  <p class="hero-kanji" style="font-size:1.3rem; font-weight:400; color:var(--accent); letter-spacing:0.2rem; margin-bottom:4px; font-family:'Noto Serif JP','Yu Mincho',serif; opacity:0; animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.8s forwards;">江坂櫻子</p>
+  <p class="tagline" data-i18n="hero.tagline">
+    Creating thoughtful, human-centered experiences at the intersection of people and technology.
   </p>
+
+  <!-- ═══════════════ FRIENDS DESCRIBE ME ═══════════════ -->
+  <div class="friends-section" id="friendsSection">
+    <p class="friends-label">How my friends describe me</p>
+    <div class="friends-input-wrap">
+      <input type="text" class="friends-input" id="friendInput" placeholder="Write something kind..." maxlength="60">
+      <button class="friends-btn" id="friendBtn">✈</button>
+    </div>
+    <div class="floating-friends" id="floatingFriends"></div>
+  </div>
 </section>
 
 <!-- ═══════════════ ABOUT ═══════════════ -->
 <section id="about">
-  <p class="section-label">About</p>
-  <h2 class="section-heading">Building things at the intersection of AI and&nbsp;people</h2>
-  <p style="color:var(--text-muted); font-size:1.05rem; max-width:600px; line-height:1.7;">
-    I'm passionate about creating intuitive, human-centered experiences powered by AI. At <strong>AI&</strong> I collaborate with an amazing team to push the boundaries of what intelligent systems can do — always with real people at the center.
+  <p class="section-label" data-i18n="about.label">About</p>
+  <h2 class="section-heading" data-i18n="about.heading">Building things at the intersection of AI and&nbsp;people</h2>
+  <p style="color:var(--text-muted); font-size:1.05rem; max-width:600px; line-height:1.7;" data-i18n="about.desc">
+    I'm passionate about creating intuitive, human-centered experiences. I collaborate with amazing teams to deliver beautiful, thoughtful work — always with real people at the center.
   </p>
 </section>
 
 <!-- ═══════════════ WORK ═══════════════ -->
 <section id="work">
-  <p class="section-label">Work</p>
-  <h2 class="section-heading">Experience &amp; Highlights</h2>
-  <div class="card-grid cols-2">
-    <div class="card">
-      <div class="year">2024 — Present</div>
-      <h3>AI&</h3>
-      <p>Contributing to cutting-edge AI products and shaping the next generation of intelligent tools.</p>
-    </div>
-    <div class="card">
+  <p class="section-label" data-i18n="work.label">Work</p>
+  <h2 class="section-heading" data-i18n="work.heading">Experience &amp; Highlights</h2>
+  <div class="work-grid">
+    <a href="https://tiyusalontokyo.square.site/" target="_blank" rel="noopener noreferrer" class="card">
+      <div class="card-header header-tiyu"></div>
+      <div class="card-logo logo-tiyu">TIY</div>
+      <div class="year">2024 — <span data-i18n="work.present">Present</span></div>
+      <h3>Tiyu Salon Tokyo</h3>
+      <p data-i18n="work.tiyu.desc">Salon management team. Contributing to beautiful salon experiences and shaping the next generation of customer care.</p>
+      <span class="card-hint" data-i18n="card.hint">Visit site →</span>
+    </a>
+    <a href="https://japansventureacademy.com/" target="_blank" rel="noopener noreferrer" class="card">
+      <div class="card-header header-jva"></div>
+      <div class="card-logo logo-jva">JVA</div>
       <div class="year">2022 — 2024</div>
-      <h3>Previous Role</h3>
-      <p>Worked across design and engineering to deliver user-facing features loved by millions.</p>
-    </div>
+      <h3>Japan Venture Academy</h3>
+      <p data-i18n="work.jva.desc">Bootcamp lead &amp; department lead. Supported founders and innovators through programs that accelerate venture growth and entrepreneurial success.</p>
+      <span class="card-hint" data-i18n="card.hint">Visit site →</span>
+    </a>
+    <a href="https://www.aiand.com/" target="_blank" rel="noopener noreferrer" class="card ai-link">
+      <div class="card-header header-ai"></div>
+      <div class="card-logo logo-ai">AI&amp;</div>
+      <div class="year"><span data-i18n="work.present">Present</span></div>
+      <h3 data-i18n="work.ai.title">AI&amp;</h3>
+      <p data-i18n="work.ai.desc">Currently interning, gaining hands-on experience in AI-driven product development and innovation.</p>
+      <span class="card-hint" data-i18n="card.hint">Visit site →</span>
+    </a>
+    <a href="https://beyond-t.jp/linkedin-student-club" target="_blank" rel="noopener noreferrer" class="card linkedin-link">
+      <div class="card-header header-linkedin"></div>
+      <div class="card-logo logo-linkedin">in</div>
+      <div class="year"><span data-i18n="work.present">Present</span></div>
+      <h3 data-i18n="work.linkedin.title">LinkedIn Student Club</h3>
+      <p data-i18n="work.linkedin.desc">Active member building professional networks and helping students leverage LinkedIn for career growth.</p>
+      <span class="card-hint" data-i18n="card.hint">Visit site →</span>
+    </a>
   </div>
 </section>
 
 <!-- ═══════════════ SKILLS ═══════════════ -->
 <section id="skills">
-  <p class="section-label">Skills</p>
-  <h2 class="section-heading">What I work with</h2>
+  <p class="section-label" data-i18n="skills.label">Skills</p>
+  <h2 class="section-heading" data-i18n="skills.heading">What I work with</h2>
   <div class="skill-tags">
-    <span class="skill-tag">AI / ML</span>
-    <span class="skill-tag">Product Design</span>
-    <span class="skill-tag">Frontend Engineering</span>
-    <span class="skill-tag">User Research</span>
-    <span class="skill-tag">Prototyping</span>
-    <span class="skill-tag">Systems Thinking</span>
+    <span class="skill-tag" data-i18n="skills.ai">AI / ML</span>
+    <span class="skill-tag" data-i18n="skills.design">Product Design</span>
+    <span class="skill-tag" data-i18n="skills.frontend">Frontend Engineering</span>
+    <span class="skill-tag" data-i18n="skills.research">User Research</span>
+    <span class="skill-tag" data-i18n="skills.prototype">Prototyping</span>
+    <span class="skill-tag" data-i18n="skills.systems">Systems Thinking</span>
+  </div>
+</section>
+
+<!-- ═══════════════ LANGUAGES ═══════════════ -->
+<section id="languages">
+  <p class="section-label" data-i18n="lang.label">Languages</p>
+  <h2 class="section-heading" data-i18n="lang.heading">Fluent in both worlds</h2>
+  <div class="lang-grid">
+    <div class="lang-card">
+      <span class="lang-flag">🇯🇵</span>
+      <div class="lang-name" data-i18n="lang.ja.name">Japanese</div>
+      <div class="lang-native" data-i18n="lang.native">Native</div>
+    </div>
+    <div class="lang-card">
+      <span class="lang-flag">🇺🇸</span>
+      <div class="lang-name" data-i18n="lang.en.name">English</div>
+      <div class="lang-native" data-i18n="lang.native">Native</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOBBIES ═══════════════ -->
+<section id="hobbies">
+  <p class="section-label" data-i18n="hobbies.label">Hobbies</p>
+  <h2 class="section-heading" data-i18n="hobbies.heading">What I love doing</h2>
+  <div class="card-grid cols-2">
+    <div class="hobby-card">
+      <h3><span style="font-size:1.4rem">🎾</span> <span data-i18n="hobbies.tennis.title">Tennis</span></h3>
+      <p data-i18n="hobbies.tennis.desc">Started playing at 5 years old through high school. Discipline, focus, and energy on the court shape how I approach challenges off it.</p>
+      <div class="game-box">
+        <canvas id="tennisCanvas"></canvas>
+      </div>
+    </div>
+    <div class="hobby-card">
+      <h3><span style="font-size:1.4rem">🧩</span> <span data-i18n="hobbies.puzzle.title">Puzzling</span></h3>
+      <p data-i18n="hobbies.puzzle.desc">Whether it's jigsaws, logic games, or brain teasers — solving puzzles is how I unwind while keeping my mind sharp.</p>
+      <div class="game-box">
+        <canvas id="puzzleCanvas"></canvas>
+      </div>
+    </div>
+    <div class="hobby-card" style="grid-column:1 / -1;">
+      <h3><span style="font-size:1.4rem">📖</span> <span data-i18n="hobbies.scrap.title">Scrapbooking</span></h3>
+      <p data-i18n="hobbies.scrap.desc">Capturing memories and curating beautiful personal albums — turning everyday moments into keepsakes.</p>
+      <div class="game-box">
+        <canvas id="scrapCanvas"></canvas>
+      </div>
+      <div class="scrap-upload">
+        <input type="file" id="scrapFileInput" accept="image/*" style="display:none">
+        <button class="scrap-upload-btn" onclick="document.getElementById('scrapFileInput').click()" data-i18n="scrap.upload">Upload a memory 📷</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ JOURNEY ═══════════════ -->
+<section id="journey">
+  <p class="section-label" data-i18n="journey.label">Journey</p>
+  <h2 class="section-heading" data-i18n="journey.heading">Places I've lived</h2>
+  <div class="globe-box">
+    <canvas id="globeCanvas"></canvas>
+  </div>
+  <div class="timeline-wrapper">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-age" data-i18n="journey.age1">Ages 0 — 5</div>
+      <div class="timeline-place">
+        <span class="place-name" data-i18n="journey.place1">Aichi, Japan</span>
+        <span class="timeline-flag">🗾</span>
+      </div>
+      <div class="timeline-photo"><img src="images/aichi.jpg" alt="Aichi, Japan" loading="lazy"></div>
+      <div class="timeline-desc" data-i18n="journey.desc1">Where it all began — surrounded by family, tradition, and the warm countryside of central Japan.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-age" data-i18n="journey.age2">Ages 5 — 9</div>
+      <div class="timeline-place">
+        <span class="timeline-flag">🇺🇸</span>
+        <span class="place-name" data-i18n="journey.place2">Ann Arbor, Michigan</span>
+      </div>
+      <div class="timeline-photo"><img src="images/ann-arbor.jpg" alt="Ann Arbor, Michigan" loading="lazy"></div>
+      <div class="timeline-desc" data-i18n="journey.desc2">First big move abroad. Elementary school in a vibrant college town, where I first discovered tennis.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-age" data-i18n="journey.age1b">Ages 9 — 11</div>
+      <div class="timeline-place">
+        <span class="place-name" data-i18n="journey.place1">Aichi, Japan</span>
+        <span class="timeline-flag">🗾</span>
+      </div>
+      <div class="timeline-photo"><img src="images/aichi.jpg" alt="Aichi, Japan" loading="lazy"></div>
+      <div class="timeline-desc" data-i18n="journey.desc3">Back to my roots for a couple of formative years — reconnecting with culture and language.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-age" data-i18n="journey.age2b">Ages 11 — 16</div>
+      <div class="timeline-place">
+        <span class="timeline-flag">🇺🇸</span>
+        <span class="place-name" data-i18n="journey.place2">Ann Arbor, Michigan</span>
+      </div>
+      <div class="timeline-photo"><img src="images/ann-arbor.jpg" alt="Ann Arbor, Michigan" loading="lazy"></div>
+      <div class="timeline-desc" data-i18n="journey.desc4">Middle school and early high school — growing up in the midwest, building discipline on and off the court.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-age" data-i18n="journey.age3">Ages 16 — 18</div>
+      <div class="timeline-place">
+        <span class="timeline-flag">🌉</span>
+        <span class="place-name" data-i18n="journey.place3">Silicon Valley, California</span>
+      </div>
+      <div class="timeline-photo"><img src="images/silicon-valley.jpg" alt="Silicon Valley, California" loading="lazy"></div>
+      <div class="timeline-desc" data-i18n="journey.desc5">Late high school near innovation central — an eye-opening experience among startups and tech culture.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-age" data-i18n="journey.age4">Age 18 — <span data-i18n="work.present">Present</span></div>
+      <div class="timeline-place">
+        <span class="place-name" data-i18n="journey.place4">Tokyo, Japan</span>
+        <span class="timeline-flag">🗼</span>
+      </div>
+      <div class="timeline-photo"><img src="images/tokyo.jpg" alt="Tokyo, Japan" loading="lazy"></div>
+      <div class="timeline-desc" data-i18n="journey.desc6">Back in Japan and calling Tokyo home — studying, working, and building a life in one of world's most dynamic cities.</div>
+    </div>
   </div>
 </section>
 
 <!-- ═══════════════ CONTACT ═══════════════ -->
 <section id="contact">
-  <p class="section-label">Contact</p>
-  <h2 class="section-heading">Let's connect</h2>
-  <p style="color:var(--text-muted); margin-bottom:24px;">
+  <p class="section-label" data-i18n="contact.label">Contact</p>
+  <h2 class="section-heading" data-i18n="contact.heading">Let's connect</h2>
+  <p style="color:var(--text-muted); margin-bottom:24px;" data-i18n="contact.desc">
     I'm always happy to chat about AI, design, or interesting projects.
   </p>
   <div class="contact-links">
-    <a href="mailto:hello@sakurako.dev">Email</a>
-    <a href="https://github.com">GitHub</a>
-    <a href="https://linkedin.com">LinkedIn</a>
-    <a href="https://twitter.com">X / Twitter</a>
+    <a href="mailto:hello@sakurako.dev" data-i18n="contact.email">Email</a>
+    <a href="https://github.com" data-i18n="contact.github">GitHub</a>
+    <a href="https://jp.linkedin.com/in/sakurakoesaka" data-i18n="contact.linkedin">LinkedIn</a>
+    <a href="https://twitter.com" data-i18n="contact.twitter">X / Twitter</a>
+    <a href="https://instagram.com/sakurakoe" data-i18n="contact.instagram">Instagram</a>
   </div>
 </section>
 
 <footer>
-  &copy; 2025 Sakurako &middot; Built with care
+  <span data-i18n="footer.text">&copy; 2025 Sakurako &middot; Built with care</span>
 </footer>
 
 <script>
@@ -483,6 +1351,1117 @@ document.querySelectorAll('section').forEach(sec => {
   sec.style.transition = 'opacity 0.7s ease-out, transform 0.7s ease-out';
   observer.observe(sec);
 });
+
+document.querySelectorAll('section').forEach(sec => {
+  sec.style.opacity = '0';
+  sec.style.transform = 'translateY(20px)';
+  sec.style.transition = 'opacity 0.7s ease-out, transform 0.7s ease-out';
+  observer.observe(sec);
+});
+
+// ═══════════════ I18N SYSTEM ═══════════════
+const i18nData = {
+  en: {
+    "nav.about": "About",
+    "nav.work": "Work",
+    "nav.skills": "Skills",
+    "nav.languages": "Languages",
+    "nav.hobbies": "Hobbies",
+    "nav.journey": "Journey",
+    "nav.contact": "Contact",
+    "hero.greeting": "Hi, I'm",
+    "hero.tagline": "Creating thoughtful, human-centered experiences at the intersection of people and technology.",
+    "about.label": "About",
+    "about.heading": "Building things at the intersection of AI and people",
+    "about.desc": "I'm passionate about creating intuitive, human-centered experiences. I collaborate with amazing teams to deliver beautiful, thoughtful work — always with real people at the center.",
+    "work.label": "Work",
+    "work.heading": "Experience & Highlights",
+    "work.present": "Present",
+    "work.tiyu.desc": "Salon management team. Contributing to beautiful salon experiences and shaping the next generation of customer care.",
+    "work.jva.desc": "Bootcamp lead & department lead. Supported founders and innovators through programs that accelerate venture growth and entrepreneurial success.",
+    "work.ai.title": "AI&",
+    "work.ai.desc": "Currently interning, gaining hands-on experience in AI-driven product development and innovation.",
+    "work.linkedin.title": "LinkedIn Student Club",
+    "work.linkedin.desc": "Active member building professional networks and helping students leverage LinkedIn for career growth.",
+    "skills.label": "Skills",
+    "skills.heading": "What I work with",
+    "skills.ai": "AI / ML",
+    "skills.design": "Product Design",
+    "skills.frontend": "Frontend Engineering",
+    "skills.research": "User Research",
+    "skills.prototype": "Prototyping",
+    "skills.systems": "Systems Thinking",
+    "lang.label": "Languages",
+    "lang.heading": "Fluent in both worlds",
+    "lang.ja.name": "Japanese",
+    "lang.en.name": "English",
+    "lang.native": "Native",
+    "hobbies.label": "Hobbies",
+    "hobbies.heading": "What I love doing",
+    "hobbies.tennis.title": "Tennis",
+    "hobbies.tennis.desc": "Started playing at 5 years old through high school. Discipline, focus, and energy on the court shape how I approach challenges off it.",
+    "hobbies.puzzle.title": "Puzzling",
+    "hobbies.puzzle.desc": "Whether it's jigsaws, logic games, or brain teasers — solving puzzles is how I unwind while keeping my mind sharp.",
+    "hobbies.scrap.title": "Scrapbooking",
+    "hobbies.scrap.desc": "Capturing memories and curating beautiful personal albums — turning everyday moments into keepsakes.",
+    "journey.label": "Journey",
+    "journey.heading": "Places I've lived",
+    "journey.age1": "Ages 0 — 5",
+    "journey.age1b": "Ages 9 — 11",
+    "journey.age2": "Ages 5 — 9",
+    "journey.age2b": "Ages 11 — 16",
+    "journey.age3": "Ages 16 — 18",
+    "journey.age4": "Age 18 — Present",
+    "journey.place1": "Aichi, Japan",
+    "journey.place2": "Ann Arbor, Michigan",
+    "journey.place3": "Silicon Valley, California",
+    "journey.place4": "Tokyo, Japan",
+    "journey.desc1": "Where it all began — surrounded by family, tradition, and the warm countryside of central Japan.",
+    "journey.desc2": "First big move abroad. Elementary school in a vibrant college town, where I first discovered tennis.",
+    "journey.desc3": "Back to my roots for a couple of formative years — reconnecting with culture and language.",
+    "journey.desc4": "Middle school and early high school — growing up in the midwest, building discipline on and off the court.",
+    "journey.desc5": "Late high school near innovation central — an eye-opening experience among startups and tech culture.",
+    "journey.desc6": "Back in Japan and calling Tokyo home — studying, working, and building a life in one of world's most dynamic cities.",
+    "contact.label": "Contact",
+    "contact.heading": "Let's connect",
+    "contact.desc": "I'm always happy to chat about AI, design, or interesting projects.",
+    "contact.email": "Email",
+    "contact.github": "GitHub",
+    "contact.linkedin": "LinkedIn",
+    "contact.twitter": "X / Twitter",
+    "contact.instagram": "Instagram",
+    "card.hint": "Visit site →",
+    "footer.text": "\u00a9 2025 Sakurako \u00b7 Built with care"
+  },
+  ja: {
+    "nav.about": "自己紹介",
+    "nav.work": "職歴",
+    "nav.skills": "スキル",
+    "nav.languages": "言語",
+    "nav.hobbies": "趣味",
+    "nav.journey": "経歴",
+    "nav.contact": "連絡先",
+    "hero.greeting": "こんにちは、",
+    "hero.tagline": "人とテクノロジーの交差点で、思いやりのある人間中心の体験を創造しています。",
+    "about.label": "自己紹介",
+    "about.heading": "AIと人の交差点でものづくりを",
+    "about.desc": "直感的で人間中心の体験を創造することに情熱を持っています。素晴らしいチームと協力し、美しく思いやりのある仕事を提供しています。常に人を中心に据えています。",
+    "work.label": "職歴",
+    "work.heading": "経験と成果",
+    "work.present": "現在",
+    "work.tiyu.desc": "サロン管理チーム。美しいサロン体験に貢献し、次世代の顧客ケアを形作っています。",
+    "work.jva.desc": "ブートキャンプリード＆部署リード。ベンチャー成長と起業家成功を加速するプログラムを通じて、創業者と革新者を支援しました。",
+    "work.ai.title": "AI&",
+    "work.ai.desc": "現在インターンとして、AI駆動の製品開発とイノベーションで実務経験を積んでいます。",
+    "work.linkedin.title": "LinkedIn学生クラブ",
+    "work.linkedin.desc": "プロフェッショナルなネットワークを構築し、学生がLinkedInを活用してキャリアを成長させることを支援する活発なメンバー。",
+    "skills.label": "スキル",
+    "skills.heading": "使用技術",
+    "skills.ai": "AI / ML",
+    "skills.design": "プロダクトデザイン",
+    "skills.frontend": "フロントエンドエンジニアリング",
+    "skills.research": "ユーザーリサーチ",
+    "skills.prototype": "プロトタイピング",
+    "skills.systems": "システム思考",
+    "lang.label": "言語",
+    "lang.heading": "両方の世界を自在に",
+    "lang.ja.name": "日本語",
+    "lang.en.name": "英語",
+    "lang.native": "ネイティブ",
+    "hobbies.label": "趣味",
+    "hobbies.heading": "好きなこと",
+    "hobbies.tennis.title": "テニス",
+    "hobbies.tennis.desc": "5歳から高校まで続けました。コートでの規律、集中力、エネルギーが、コート外での挑戦の姿勢を形作っています。",
+    "hobbies.puzzle.title": "パズル",
+    "hobbies.puzzle.desc": "ジグソー、論理ゲーム、脳トレ問 — パズルを解くことは、頭を休めながら鍛える私の方法です。",
+    "hobbies.scrap.title": "スクラップブック",
+    "hobbies.scrap.desc": "思い出を捉えて美しいアルバムにまとめる — 日常の瞬間を宝物に変えること。",
+    "journey.label": "経歴",
+    "journey.heading": "住んだ場所",
+    "journey.age1": "0〜5歳",
+    "journey.age1b": "9〜11歳",
+    "journey.age2": "5〜9歳",
+    "journey.age2b": "11〜16歳",
+    "journey.age3": "16〜18歳",
+    "journey.age4": "18歳〜現在",
+    "journey.place1": "愛知県、日本",
+    "journey.place2": "アナーバー、ミシガン州",
+    "journey.place3": "シリコンバレー、カリフォルニア州",
+    "journey.place4": "東京、日本",
+    "journey.desc1": "すべてが始まった場所 — 家族と伝統、そして中部の温かな田舎に囲まれて。",
+    "journey.desc2": "初めての大きな海外転居。活気ある大学町の小学校で、テニスを始めました。",
+    "journey.desc3": "形成期の数年を過ごすため拠点に戻り、文化と言語と再び繋がりました。",
+    "journey.desc4": "中学校と高校初年 — 中西部で育ち、コートの内外で規律を築きました。",
+    "journey.desc5": "イノベーションの中心地近くの高校後期 — スタートアップとテックカルチャーに触れる目覚めの体験。",
+    "journey.desc6": "日本に戻り、東京を拠点に — 勉強し、働き、世界で最もダイナミックな都市の一つで人生を築いています。",
+    "contact.label": "連絡先",
+    "contact.heading": "つながりましょう",
+    "contact.desc": "AI、デザイン、または興味深いプロジェクトについていつでもお気軽にお話ししましょう。",
+    "contact.email": "メール",
+    "contact.github": "GitHub",
+    "contact.linkedin": "LinkedIn",
+    "contact.twitter": "X / Twitter",
+    "contact.instagram": "Instagram",
+    "card.hint": "サイトを見る →",
+    "footer.text": "\u00a9 2025 江坂櫻子 \u00b7 心をこめて作りました"
+  }
+};
+
+let currentLang = localStorage.getItem('lang') || 'en';
+
+function applyLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18nData[lang] && i18nData[lang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = i18nData[lang][key];
+      } else {
+        el.innerText = i18nData[lang][key];
+      }
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+  localStorage.setItem('lang', lang);
+}
+
+document.getElementById('langToggle').addEventListener('click', (e) => {
+  const btn = e.target.closest('.lang-btn');
+  if (!btn) return;
+  const lang = btn.getAttribute('data-lang');
+  if (lang && lang !== currentLang) applyLanguage(lang);
+});
+
+applyLanguage(currentLang);
+
+// ═══════════════ ROTATING GLOBE ═══════════════
+(function(){
+  const canvas = document.getElementById('globeCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = 900; canvas.height = 900;
+
+  const R = 260;
+  const CX = 450, CY = 450;
+  const rotY = 0.4;
+
+  const pins = [
+    {lat: 35.18, lon: 136.91, city: 'Aichi', color: '#e07086'},
+    {lat: 42.28, lon: -83.74, city: 'Ann Arbor', color: '#e87a93'},
+    {lat: 37.34, lon: -121.89, city: 'Silicon Valley', color: '#f8a5b8'},
+    {lat: 35.68, lon: 139.65, city: 'Tokyo', color: '#e07086'}
+  ];
+
+  function to3D(lat, lon) {
+    const phi = (90 - lat) * Math.PI / 180;
+    const theta = (lon + 180) * Math.PI / 180;
+    return {
+      x: -Math.sin(phi) * Math.cos(theta),
+      y: Math.cos(phi),
+      z: Math.sin(phi) * Math.sin(theta)
+    };
+  }
+  function rotateY(v, a) {
+    const cos = Math.cos(a), sin = Math.sin(a);
+    return { x: v.x * cos + v.z * sin, y: v.y, z: -v.x * sin + v.z * cos };
+  }
+
+  function draw(timestamp){
+    ctx.clearRect(0, 0, 900, 900);
+
+    // shadow beneath
+    ctx.fillStyle = 'rgba(224,112,134,0.04)';
+    ctx.beginPath(); ctx.ellipse(CX, CY + R + 12, R * 0.65, 10, 0, 0, Math.PI * 2); ctx.fill();
+
+    // sphere body
+    const sphereGrad = ctx.createRadialGradient(CX - 50, CY - 50, 15, CX, CY, R);
+    sphereGrad.addColorStop(0, '#fff7f9');
+    sphereGrad.addColorStop(0.55, '#ffe8f0');
+    sphereGrad.addColorStop(1, '#f0c0cf');
+    ctx.fillStyle = sphereGrad;
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.fill();
+
+    // clip for grid lines
+    ctx.save();
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.clip();
+
+    // meridians
+    ctx.lineWidth = 1.2;
+    for (let lon = -180; lon < 180; lon += 30) {
+      const pts = [];
+      for (let lat = -90; lat <= 90; lat += 3) {
+        const v = to3D(lat, lon);
+        const r = rotateY(v, rotY);
+        if (r.z > -0.2) pts.push({x: CX + r.x * R, y: CY - r.y * R, z: r.z});
+      }
+      ctx.strokeStyle = lon === 0 || lon === 180 || lon === -180
+        ? 'rgba(224,112,134,0.14)'
+        : 'rgba(224,112,134,0.08)';
+      if (pts.length > 1) {
+        ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.stroke();
+      }
+    }
+
+    // parallels (including equator)
+    for (let lat = -60; lat <= 60; lat += 30) {
+      const pts = [];
+      for (let lon = -180; lon <= 180; lon += 3) {
+        const v = to3D(lat, lon);
+        const r = rotateY(v, rotY);
+        if (r.z > -0.2) pts.push({x: CX + r.x * R, y: CY - r.y * R, z: r.z});
+      }
+      ctx.strokeStyle = lat === 0 ? 'rgba(224,112,134,0.14)' : 'rgba(224,112,134,0.08)';
+      if (pts.length > 1) {
+        ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+
+    // rim
+    ctx.strokeStyle = 'rgba(224,112,134,0.12)';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.stroke();
+
+    // pins
+    pins.forEach(p => {
+      const v = to3D(p.lat, p.lon);
+      const r = rotateY(v, rotY);
+      if (r.z > 0) {
+        const px = CX + r.x * R;
+        const py = CY - r.y * R;
+        const depth = r.z; // 0..1 (closer to viewer)
+        const sz = 4 + depth * 3;
+
+        // large ambient glow for visible pins
+        ctx.beginPath();
+        ctx.fillStyle = p.color + (Math.floor(35 + depth * 45).toString(16).padStart(2,'0'));
+        ctx.arc(px, py, sz * 3 + 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // inner glow
+        ctx.beginPath();
+        ctx.fillStyle = p.color + '88';
+        ctx.arc(px, py, sz + 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // core dot
+        ctx.beginPath();
+        ctx.fillStyle = '#fff';
+        ctx.arc(px, py, sz, 0, Math.PI * 2);
+        ctx.fill();
+
+        // center accent
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.arc(px, py, sz * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // label for the front-most pin
+        if (depth > 0.92) {
+          ctx.fillStyle = 'rgba(61,42,46,0.45)';
+          ctx.font = '600 11px DM Sans, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText(p.city, px, py - sz - 6);
+        }
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ═══════════════ INTERACTIVE MINI GAMES ═══════════════
+
+// ── TENNIS 🎾 Mini Players ──
+(function(){
+  const canvas = document.getElementById('tennisCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = canvas.parentElement.clientWidth; canvas.height = 180; }
+  resize(); window.addEventListener('resize', resize);
+
+  const br = 4.5;
+  let bx, by, bvx, bvy;
+  let trail = [];
+
+  // Point scoring
+  let p1Score = 0, p2Score = 0;
+  let serving = 1; // who serves (1 or 2)
+  let rally = 0;
+
+  // Player positions
+  let p1x, p2x; // x positions
+  let p1target, p2target;
+
+  function resetBall(fromPlayer){
+    const W = canvas.width;
+    if(fromPlayer === 1){
+      bx = p1x; by = canvas.height - 40;
+      bvx = (Math.random()-0.5) * 3.2;
+      bvy = -2.6 - Math.random() * 1.2;
+    } else {
+      bx = p2x; by = 40;
+      bvx = (Math.random()-0.5) * 3.2;
+      bvy = 2.6 + Math.random() * 1.2;
+    }
+    rally = 0;
+  }
+
+  function resetGame(){
+    p1x = canvas.width * 0.3;
+    p2x = canvas.width * 0.7;
+    p1target = p1x; p2target = p2x;
+    resetBall(serving);
+  }
+  resetGame();
+
+  function drawCourt(W,H){
+    const margin = 10, cx = margin, cy = margin + 12, cw = W - margin*2, ch = H - margin*2 - 12;
+    ctx.fillStyle = '#3d6b4a'; ctx.fillRect(cx, cy, cw, ch);
+    ctx.fillStyle = '#4f8a5f'; ctx.fillRect(cx+4, cy+4, cw-8, ch-8);
+    ctx.strokeStyle = 'rgba(255,255,255,0.85)'; ctx.lineWidth = 2;
+    const px = cx+4, py = cy+4, pw = cw-8, ph = ch-8;
+    ctx.strokeRect(px, py, pw, ph);
+    const sdx = pw * 0.12;
+    ctx.beginPath(); ctx.moveTo(px+sdx, py); ctx.lineTo(px+sdx, py+ph); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px+pw-sdx, py); ctx.lineTo(px+pw-sdx, py+ph); ctx.stroke();
+    const svcY = py + ph * 0.4, svcY2 = py + ph * 0.6;
+    ctx.beginPath(); ctx.moveTo(px+sdx, svcY); ctx.lineTo(px+pw-sdx, svcY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px+sdx, svcY2); ctx.lineTo(px+pw-sdx, svcY2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px+pw/2, svcY); ctx.lineTo(px+pw/2, svcY2); ctx.stroke();
+    // net
+    const netY = py + ph/2;
+    ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+    ctx.setLineDash([3,3]); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(px, netY); ctx.lineTo(px+pw, netY); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(px, netY-3); ctx.lineTo(px, netY+3); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px+pw, netY-3); ctx.lineTo(px+pw, netY+3); ctx.stroke();
+  }
+
+  function drawTennisBall(x,y){
+    trail.forEach(t=>{ ctx.beginPath(); ctx.fillStyle=`rgba(214,196,60,${Math.max(0,t.a)})`; ctx.arc(t.x,t.y,br*0.7,0,Math.PI*2); ctx.fill(); });
+    ctx.beginPath(); ctx.fillStyle='rgba(0,0,0,0.1)'; ctx.ellipse(x+1,y+br+1,br*0.7,br*0.25,0,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.fillStyle='#d9c34a'; ctx.arc(x,y,br,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.strokeStyle='#b5a030'; ctx.lineWidth=1;
+    ctx.arc(x,y,br-0.8,0.3,2.5); ctx.stroke();
+    ctx.beginPath(); ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.arc(x-1.2,y-1.2,br*0.3,0,Math.PI*2); ctx.fill();
+  }
+
+  function drawMiniPlayer(x, y, color, shirtColor, isTop){
+    const s = 1; // scale
+    ctx.save(); ctx.translate(x, y);
+    if(isTop) ctx.scale(1,-1);
+    // shadow
+    ctx.beginPath(); ctx.fillStyle='rgba(0,0,0,0.12)';
+    ctx.ellipse(0, 7*s, 7*s, 2*s, 0, 0, Math.PI*2); ctx.fill();
+    // legs
+    ctx.strokeStyle='rgba(120,90,80,0.5)'; ctx.lineWidth=2.5;
+    ctx.beginPath(); ctx.moveTo(-3*s, 2*s); ctx.lineTo(-3*s, 7*s); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(3*s, 2*s); ctx.lineTo(3*s, 7*s); ctx.stroke();
+    // body / skirt or shorts
+    ctx.fillStyle = shirtColor;
+    ctx.beginPath();
+    ctx.ellipse(0, -1*s, 5*s, 4.5*s, 0, 0, Math.PI*2); ctx.fill();
+    // shirt
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.ellipse(0, -5*s, 4.5*s, 4*s, 0, 0, Math.PI*2); ctx.fill();
+    // arms
+    ctx.strokeStyle='rgba(210,180,160,0.9)'; ctx.lineWidth=2.2;
+    ctx.beginPath(); ctx.moveTo(-4.5*s, -5*s); ctx.lineTo(-8*s, -2*s); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(4.5*s, -5*s); ctx.lineTo(9*s, -5*s); ctx.stroke(); // racket arm
+    // head
+    ctx.fillStyle='rgba(210,180,160,0.95)';
+    ctx.beginPath(); ctx.arc(0, -10*s, 3.2*s, 0, Math.PI*2); ctx.fill();
+    // hair
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(0, -10.5*s, 3.5*s, Math.PI*0.8, Math.PI*2.2); ctx.fill();
+    // headband
+    ctx.fillStyle = shirtColor;
+    ctx.beginPath(); ctx.roundRect(-3.5*s, -12*s, 7*s, 1.5*s, 0.5); ctx.fill();
+    // eye
+    ctx.fillStyle='#333'; ctx.beginPath(); ctx.arc(isTop?-1.3*s:1.3*s, -10*s, 0.5*s, 0, Math.PI*2); ctx.fill();
+    // Racket in hand
+    ctx.save(); ctx.translate(9*s, -5*s); ctx.rotate(0.4);
+    ctx.fillStyle='#8B5A2B';
+    ctx.beginPath(); ctx.roundRect(-1, -10, 2, 14, 1); ctx.fill();
+    ctx.strokeStyle='#e87a93'; ctx.lineWidth=1.8;
+    ctx.beginPath(); ctx.ellipse(0,-12,5,7,0,0,Math.PI*2); ctx.stroke();
+    ctx.strokeStyle='rgba(196,77,104,0.35)'; ctx.lineWidth=0.5;
+    for(let i=-1;i<=1;i++){ ctx.beginPath(); ctx.moveTo(-3+i*3,-17); ctx.lineTo(-3+i*3,-7); ctx.stroke(); }
+    for(let j=-1;j<=1;j++){ ctx.beginPath(); ctx.moveTo(-4,-14+j*3); ctx.lineTo(4,-14+j*3); ctx.stroke(); }
+    ctx.restore();
+    ctx.restore();
+  }
+
+  function update(){
+    const W = canvas.width, H = canvas.height;
+    bx += bvx; by += bvy;
+    trail.push({x:bx,y:by,a:1});
+    if(trail.length>14) trail.shift();
+    trail.forEach(t=>t.a-=0.08);
+
+    const margin = 10, py = margin+12, ph = H - margin*2 - 12 - 8;
+    const topLine = py+4+ph*0.6, botLine = py+4+ph*0.4;
+    const innerLeft = margin + 4 + (W - margin*2 - 8) * 0.12;
+    const innerRight = margin + 4 + (W - margin*2 - 8) - (W - margin*2 - 8) * 0.12;
+
+    // AI movement with some reaction delay and prediction
+    // P1 (bottom) moves toward ball x
+    p1target = bx;
+    p1x += (p1target - p1x) * 0.09;
+    p1x = Math.max(innerLeft+14, Math.min(innerRight-14, p1x));
+
+    // P2 (top) moves toward ball x with slightly faster reaction
+    p2target = bx;
+    p2x += (p2target - p2x) * 0.11;
+    p2x = Math.max(innerLeft+14, Math.min(innerRight-14, p2x));
+
+    // Wall bounce
+    if(bx - br < innerLeft){ bx = innerLeft+br; bvx = Math.abs(bvx); }
+    if(bx + br > innerRight){ bx = innerRight-br; bvx = -Math.abs(bvx); }
+
+    // P1 hit (ball moving down toward bottom)
+    if(bvy > 0 && by + br >= botLine && by + br <= botLine + 14 && bx >= p1x - 18 && bx <= p1x + 18){
+      bvy = -Math.abs(bvy) - 0.18;
+      let off = (bx - p1x) / 18;
+      bvx += off * 2.8;
+      bvx = Math.max(-4.8, Math.min(4.8, bvx));
+      rally++;
+    }
+
+    // P2 hit (ball moving up toward top)
+    if(bvy < 0 && by - br <= topLine && by - br >= topLine - 14 && bx >= p2x - 18 && bx <= p2x + 18){
+      bvy = Math.abs(bvy) + 0.18;
+      let off = (bx - p2x) / 18;
+      bvx += off * 2.8;
+      bvx = Math.max(-4.8, Math.min(4.8, bvx));
+      rally++;
+    }
+
+    // Score when ball goes out of play
+    if(by - br > H + 20){ // P1 missed
+      p2Score++;
+      serving = 2;
+      setTimeout(()=>resetBall(2), 600);
+      return;
+    }
+    if(by + br < -20){ // P2 missed
+      p1Score++;
+      serving = 1;
+      setTimeout(()=>resetBall(1), 600);
+      return;
+    }
+  }
+
+  function draw(){
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0,0,W,H);
+    drawCourt(W,H);
+
+    // Draw players
+    drawMiniPlayer(p1x, H - 18, '#d47070', '#e07086', false);
+    drawMiniPlayer(p2x, 18, '#7080d4', '#4a90d9', true);
+
+    // Ball on top if it's near the net area
+    drawTennisBall(bx, by);
+
+    // Scoreboard
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.font = 'bold 13px DM Sans, sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.fillText(`${p1Score}  -  ${p2Score}`, W/2, 14);
+
+    // Rally counter below score
+    if(rally > 1){
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.font = '500 10px DM Sans, sans-serif';
+      ctx.fillText(`Rally ${rally}`, W/2, 29);
+    }
+
+    requestAnimationFrame(draw); update();
+  }
+  draw();
+})();
+
+// ── PUZZLING 🧩 Sakura Scene ──
+(function(){
+  const canvas = document.getElementById('puzzleCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = canvas.parentElement.clientWidth; canvas.height = 180; }
+  resize(); window.addEventListener('resize', resize);
+
+  const cols=4, rows=3;
+  let pieces=[];
+  let dragged=null;
+  let dox=0, doy=0;
+  let completed=0;
+  let msg='';
+
+  // Seedable random so the image renders the same every frame
+  let seed = 42;
+  function rng(){ seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+  function seededRng(s){ seed=s; }
+
+  // Draw a beautiful cherry blossom scene inside a clipping rectangle
+  function drawSakuraScene(ctx2, x, y, w, h, seedVal){
+    seededRng(seedVal || 42);
+    ctx2.save();
+    ctx2.beginPath(); ctx2.rect(x,y,w,h); ctx2.clip();
+
+    // Sky gradient — soft dawn
+    const sky = ctx2.createLinearGradient(x, y, x, y+h);
+    sky.addColorStop(0.00, '#c2e0f7');
+    sky.addColorStop(0.35, '#ffe8f0');
+    sky.addColorStop(0.55, '#ffd4e5');
+    sky.addColorStop(0.80, '#ffb8d1');
+    sky.addColorStop(1.00, '#f8a5b8');
+    ctx2.fillStyle = sky; ctx2.fillRect(x, y, w, h);
+
+    // Moon
+    ctx2.beginPath(); ctx2.fillStyle = '#fff8e7';
+    ctx2.arc(x + w*0.78, y + h*0.24, 14 + rng()*5, 0, Math.PI*2); ctx2.fill();
+    ctx2.beginPath(); ctx2.fillStyle = 'rgba(255,248,231,0.35)';
+    ctx2.arc(x + w*0.78, y + h*0.24, 24 + rng()*6, 0, Math.PI*2); ctx2.fill();
+
+    // Distant mountains
+    ctx2.fillStyle = '#c8b8cc';
+    ctx2.beginPath(); ctx2.moveTo(x, y+h*0.52);
+    ctx2.quadraticCurveTo(x+w*0.22, y+h*0.35, x+w*0.45, y+h*0.46);
+    ctx2.quadraticCurveTo(x+w*0.62, y+h*0.40, x+w*0.82, y+h*0.44);
+    ctx2.quadraticCurveTo(x+w*0.92, y+h*0.42, x+w, y+h*0.46);
+    ctx2.lineTo(x+w, y+h); ctx2.lineTo(x, y+h); ctx2.fill();
+
+    // Midground hills
+    ctx2.fillStyle = '#d4c2d8';
+    ctx2.beginPath(); ctx2.moveTo(x, y+h*0.62);
+    ctx2.quadraticCurveTo(x+w*0.15, y+h*0.52, x+w*0.35, y+h*0.58);
+    ctx2.quadraticCurveTo(x+w*0.55, y+h*0.50, x+w*0.78, y+h*0.56);
+    ctx2.quadraticCurveTo(x+w*0.90, y+h*0.54, x+w, y+h*0.60);
+    ctx2.lineTo(x+w, y+h); ctx2.lineTo(x, y+h); ctx2.fill();
+
+    // River — flowing diagonally
+    ctx2.save();
+    const waterGrad = ctx2.createLinearGradient(x+w*0.1, y+h*0.55, x+w*0.9, y+h*0.9);
+    waterGrad.addColorStop(0, '#b8dce8');
+    waterGrad.addColorStop(0.3, '#d4e9f2');
+    waterGrad.addColorStop(0.6, '#e8f4f8');
+    waterGrad.addColorStop(1, '#f0f8fb');
+    ctx2.fillStyle = waterGrad;
+    ctx2.beginPath();
+    ctx2.moveTo(x, y+h*0.75);
+    ctx2.quadraticCurveTo(x+w*0.35, y+h*0.70, x+w*0.60, y+h*0.80);
+    ctx2.quadraticCurveTo(x+w*0.85, y+h*0.88, x+w, y+h*0.78);
+    ctx2.lineTo(x+w, y+h);
+    ctx2.lineTo(x, y+h);
+    ctx2.fill();
+
+    // Water reflections
+    for(let i=0;i<18;i++){
+      const rx = x + w*(0.15 + rng()*0.6);
+      const ry = y + h*(0.78 + rng()*0.18);
+      const rw = 6 + rng()*22;
+      ctx2.fillStyle = 'rgba(255,255,255,'+(0.1+rng()*0.2)+')';
+      ctx2.beginPath(); ctx2.ellipse(rx, ry, rw, 1.2+rng()*1, rng()*0.2, 0, Math.PI*2); ctx2.fill();
+    }
+    ctx2.restore();
+
+    // Left cherry blossom tree (big arching branch)
+    ctx2.strokeStyle = '#6B3E26';
+    ctx2.lineWidth = 2.8;
+    ctx2.lineCap = 'round';
+    ctx2.beginPath();
+    ctx2.moveTo(x - 10, y + h*0.88);
+    ctx2.quadraticCurveTo(x + w*0.05, y + h*0.55, x + w*0.24, y + h*0.18);
+    ctx2.quadraticCurveTo(x + w*0.38, y + h*0.02, x + w*0.58, y - 10);
+    ctx2.stroke();
+
+    // Sub-branches left
+    ctx2.lineWidth = 1.6;
+    const lbranches = [[0.06,0.75,0.14,0.55],[0.12,0.62,0.24,0.42],[0.20,0.45,0.34,0.28],[0.28,0.30,0.40,0.14],[0.36,0.18,0.48,0.06],[0.18,0.50,0.32,0.40],[0.10,0.68,0.22,0.55]];
+    lbranches.forEach(([sx,sy,ex,ey])=>{
+      ctx2.beginPath(); ctx2.moveTo(x+w*sx, y+h*sy); ctx2.quadraticCurveTo(x+w*(sx*0.6+ex*0.4), y+h*((sy+ey)/2-0.03), x+w*ex, y+h*ey); ctx2.stroke();
+    });
+
+    // Right sakura tree (smaller)
+    ctx2.lineWidth = 2.2;
+    ctx2.beginPath();
+    ctx2.moveTo(x + w*1.08, y + h*0.92);
+    ctx2.quadraticCurveTo(x + w*0.92, y + h*0.60, x + w*0.74, y + h*0.30);
+    ctx2.quadraticCurveTo(x + w*0.64, y + h*0.15, x + w*0.52, y - 5);
+    ctx2.stroke();
+    ctx2.lineWidth = 1.4;
+    const rbranches = [[0.82,0.62,0.68,0.42],[0.76,0.40,0.62,0.24],[0.68,0.28,0.56,0.12],[0.62,0.18,0.52,0.05],[0.85,0.72,0.72,0.58],[0.78,0.48,0.66,0.35]];
+    rbranches.forEach(([sx,sy,ex,ey])=>{
+      ctx2.beginPath(); ctx2.moveTo(x+w*sx, y+h*sy); ctx2.quadraticCurveTo(x+w*(sx*0.6+ex*0.4), y+h*((sy+ey)/2-0.02), x+w*ex, y+h*ey); ctx2.stroke();
+    });
+
+    // Draw cherry blossom clusters (soft cloud-like blobs + individual petals on branches)
+    function drawTreeCanopy(tx, ty, scale){
+      ctx2.fillStyle = 'rgba(255, 182, 193, 0.65)';
+      for(let i=0; i<40; i++){
+        const ox = tx + (rng()-0.5)*scale*2.2;
+        const oy = ty + (rng()-0.5)*scale*0.7;
+        const or = scale*(0.25 + rng()*0.35);
+        ctx2.beginPath(); ctx2.arc(ox, oy, or, 0, Math.PI*2); ctx2.fill();
+      }
+      // denser white/pink inner highlights
+      ctx2.fillStyle = 'rgba(255, 240, 245, 0.55)';
+      for(let i=0; i<25; i++){
+        const ox = tx + (rng()-0.5)*scale*1.6;
+        const oy = ty + (rng()-0.5)*scale*0.5;
+        const or = scale*(0.15 + rng()*0.25);
+        ctx2.beginPath(); ctx2.arc(ox, oy, or, 0, Math.PI*2); ctx2.fill();
+      }
+      // Detail — 5-petal flower shapes
+      for(let i=0; i<18; i++){
+        const ox = tx + (rng()-0.5)*scale*2.0;
+        const oy = ty + (rng()-0.5)*scale*0.6;
+        const sr = scale*(0.12 + rng()*0.18);
+        ctx2.fillStyle = rng()>0.5 ? '#ffb7c5' : '#ffcdd8';
+        for(let k=0;k<5;k++){
+          const a = (k/5)*Math.PI*2;
+          ctx2.beginPath();
+          ctx2.ellipse(ox+Math.cos(a)*sr*1.8, oy+Math.sin(a)*sr*1.8, sr, sr*0.45, a, 0, Math.PI*2);
+          ctx2.fill();
+        }
+        // flower center
+        ctx2.beginPath(); ctx2.fillStyle='rgba(255,255,220,0.8)'; ctx2.arc(ox,oy,sr*0.35,0,Math.PI*2); ctx2.fill();
+      }
+    }
+    // Left tree canopy clusters
+    drawTreeCanopy(x+w*0.32, y+h*0.12, w*0.28);
+    drawTreeCanopy(x+w*0.18, y+h*0.28, w*0.22);
+    drawTreeCanopy(x+w*0.44, y+h*0.06, w*0.18);
+    drawTreeCanopy(x+w*0.06, y+h*0.48, w*0.15);
+    // Right tree canopy clusters
+    drawTreeCanopy(x+w*0.68, y+h*0.18, w*0.20);
+    drawTreeCanopy(x+w*0.58, y+h*0.08, w*0.16);
+    drawTreeCanopy(x+w*0.78, y+h*0.30, w*0.14);
+    drawTreeCanopy(x+w*0.56, y+h*0.24, w*0.12);
+
+    // Falling petals in air
+    const fallPetals = [
+      [0.32,0.38,15],[0.45,0.52,-8],[0.18,0.42,22],[0.55,0.35,12],
+      [0.38,0.58,-18],[0.62,0.48,6],[0.28,0.62,10],[0.48,0.68,-5],
+      [0.20,0.55,14],[0.52,0.42,-12],[0.35,0.48,8],[0.58,0.55,-15],
+      [0.42,0.62,5],[0.68,0.40,18],[0.15,0.45,-10],[0.50,0.58,12],
+      [0.30,0.52,-6],[0.65,0.52,9],[0.40,0.45,13],[0.72,0.45,-8]
+    ];
+    fallPetals.forEach(([px,py,rot])=>{
+      ctx2.save(); ctx2.translate(x+w*px, y+h*py); ctx2.rotate(rot*Math.PI/180);
+      ctx2.fillStyle = rng()>0.4 ? '#ffd1dc' : '#ffc8d8';
+      ctx2.beginPath(); ctx2.ellipse(0,0,3.5,2,0,0,Math.PI*2); ctx2.fill();
+      ctx2.restore();
+    });
+
+    // Petals floating on water
+    const waterPetals = [
+      [0.22,0.85,-5],[0.35,0.90,8],[0.45,0.82,12],[0.55,0.88,-8],
+      [0.30,0.93,5],[0.42,0.86,-10],[0.50,0.90,3],[0.60,0.82,-12],
+      [0.38,0.88,8],[0.48,0.92,-5],[0.52,0.80,10],[0.58,0.86,-3],
+      [0.26,0.80,6],[0.58,0.92,-9],[0.33,0.89,4],[0.62,0.85,11]
+    ];
+    waterPetals.forEach(([px,py,rot])=>{
+      ctx2.save(); ctx2.translate(x+w*px, y+h*py); ctx2.rotate(rot*Math.PI/180);
+      ctx2.fillStyle = 'rgba(255, 209, 220, 0.55)';
+      ctx2.beginPath(); ctx2.ellipse(0,0,4,2.5,0,0,Math.PI*2); ctx2.fill();
+      ctx2.restore();
+    });
+
+    // Ground grass patches
+    for(let i=0;i<15;i++){
+      const gx = x + w*(0.05 + rng()*0.9);
+      const gy = y + h*(0.85 + rng()*0.13);
+      ctx2.fillStyle = 'rgba(180, 225, 180, 0.25)';
+      ctx2.beginPath(); ctx2.arc(gx,gy,3+rng()*5,Math.PI,0); ctx2.fill();
+    }
+
+    // Lanterns hanging from branches
+    const lanterns = [[0.16,0.45],[0.28,0.20],[0.40,0.08],[0.74,0.55]];
+    lanterns.forEach(([lx,ly])=>{
+      const lxPos = x+w*lx, lyPos = y+h*ly;
+      // string
+      ctx2.strokeStyle = 'rgba(107,62,38,0.45)'; ctx2.lineWidth = 0.8;
+      ctx2.beginPath(); ctx2.moveTo(lxPos, lyPos-6); ctx2.lineTo(lxPos, lyPos); ctx2.stroke();
+      // lantern body
+      const lColor = rng()>0.5 ? '#fff8e1' : '#ffe8e0';
+      ctx2.fillStyle = lColor;
+      ctx2.beginPath(); ctx2.roundRect(lxPos-3.5, lyPos, 7, 9, 2); ctx2.fill();
+      ctx2.strokeStyle = 'rgba(107,62,38,0.3)'; ctx2.lineWidth = 0.6;
+      ctx2.beginPath(); ctx2.roundRect(lxPos-3.5, lyPos, 7, 9, 2); ctx2.stroke();
+      // lantern top
+      ctx2.fillStyle = 'rgba(107,62,38,0.5)';
+      ctx2.beginPath(); ctx2.roundRect(lxPos-2, lyPos-1.5, 4, 2, 1); ctx2.fill();
+      // soft glow beneath lantern
+      ctx2.fillStyle = 'rgba(255,240,200,0.15)';
+      ctx2.beginPath(); ctx2.arc(lxPos, lyPos+8, 7, 0, Math.PI*2); ctx2.fill();
+    });
+
+    ctx2.restore();
+  }
+
+  function drawJigsawPath(ctx, w, h, e){
+    const tabSize = 0.28;
+    const tabDepth = 0.18;
+    const hw = w/2, hh = h/2;
+    ctx.beginPath();
+    ctx.moveTo(-hw, -hh);
+    // top edge
+    edgePath(ctx, -hw, -hh,  hw, -hh, e.top);
+    // right edge
+    edgePath(ctx,  hw, -hh,  hw,  hh, e.right);
+    // bottom edge
+    edgePath(ctx,  hw,  hh, -hw,  hh, e.bottom);
+    // left edge
+    edgePath(ctx, -hw,  hh, -hw, -hh, e.left);
+    ctx.closePath();
+  }
+  function edgePath(ctx, x1, y1, x2, y2, type){
+    if(type === 0){ ctx.lineTo(x2, y2); return; }
+    const mx = (x1+x2)/2, my = (y1+y2)/2;
+    const dx = x2-x1, dy = y2-y1;
+    const len = Math.sqrt(dx*dx+dy*dy);
+    const nx = dx/len, ny = dy/len;
+    const px = -ny, py = nx; // perpendicular
+    const d = type * len * 0.18; // depth (+out, -in)
+    const w = len * 0.28;        // tab half-width
+    const cp1x = mx - nx*w*0.5 + px*d*0.25;
+    const cp1y = my - ny*w*0.5 + py*d*0.25;
+    const tipx = mx + px*d;
+    const tipy = my + py*d;
+    const cp2x = mx + nx*w*0.5 + px*d*0.25;
+    const cp2y = my + ny*w*0.5 + py*d*0.25;
+    ctx.lineTo(mx - nx*w*0.85, my - ny*w*0.85);
+    ctx.bezierCurveTo(cp1x, cp1y, tipx, tipy, tipx, tipy);
+    ctx.bezierCurveTo(tipx + px*d*0.1, tipy + py*d*0.1, cp2x, cp2y, mx + nx*w*0.85, my + ny*w*0.85);
+    ctx.lineTo(x2, y2);
+  }
+
+  // generate interlocking edges (top/right/bottom/left: 0=flat, 1=tab, -1=blank)
+  function generateEdges(){
+    const e = [];
+    for(let r=0;r<rows;r++){ e[r]=[]; for(let c=0;c<cols;c++) e[r][c]={top:0,right:0,bottom:0,left:0}; }
+    // top/bottom coupling
+    for(let r=0;r<rows-1;r++){
+      for(let c=0;c<cols;c++){
+        const v = Math.random()>0.5 ? 1 : -1;
+        e[r][c].bottom = v; e[r+1][c].top = -v;
+      }
+    }
+    // left/right coupling
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols-1;c++){
+        const v = Math.random()>0.5 ? 1 : -1;
+        e[r][c].right = v; e[r][c+1].left = -v;
+      }
+    }
+    return e;
+  }
+
+  function initPieces(){
+    pieces=[];
+    const W=canvas.width, H=canvas.height;
+    const pw=(W-40)/cols, ph=(H-40)/rows;
+    const edgeMap = generateEdges();
+    let s=1;
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        pieces.push({
+          tx:20+c*pw+pw/2, ty:20+r*ph+ph/2,
+          pw,ph, cr:c,rr:r,
+          edges: edgeMap[r][c],
+          x: W/2 + (Math.random()-0.5)*W*0.7,
+          y: H/2 + (Math.random()-0.5)*H*0.7,
+          done:false, id:s++
+        });
+      }
+    }
+    completed=0; msg='Drag pieces into place!';
+  }
+  initPieces();
+
+  function getPos(e){
+    const r=canvas.getBoundingClientRect();
+    const cx=e.touches?e.touches[0].clientX:e.clientX;
+    const cy=e.touches?e.touches[0].clientY:e.clientY;
+    return{x:cx-r.left,y:cy-r.top};
+  }
+
+  function onDown(e){
+    const pos=getPos(e);
+    let hit=null;
+    for(let i=pieces.length-1;i>=0;i--){
+      const p=pieces[i]; if(p.done) continue;
+      if(pos.x>=p.x-p.pw/2 && pos.x<=p.x+p.pw/2 && pos.y>=p.y-p.ph/2 && pos.y<=p.y+p.ph/2){ hit=p; break; }
+    }
+    if(hit){ dragged=hit; dox=pos.x-hit.x; doy=pos.y-hit.y; pieces.splice(pieces.indexOf(hit),1); pieces.push(hit); }
+  }
+  function onMove(e){ if(!dragged)return; const pos=getPos(e); dragged.x=pos.x-dox; dragged.y=pos.y-doy; }
+  function onUp(){
+    if(!dragged)return;
+    const snap=20;
+    if(Math.abs(dragged.x-dragged.tx)<snap && Math.abs(dragged.y-dragged.ty)<snap){
+      dragged.x=dragged.tx; dragged.y=dragged.ty; dragged.done=true; completed++;
+      msg = `${completed}/${pieces.length} placed!`;
+      if(completed===pieces.length){ msg='🎉 Complete!'; setTimeout(initPieces,2200); }
+    }
+    dragged=null;
+  }
+  canvas.addEventListener('mousedown',onDown);
+  canvas.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+  canvas.addEventListener('touchstart',e=>onDown(e),{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();onMove(e);},{passive:false});
+  canvas.addEventListener('touchend',onUp);
+
+  function draw(){
+    const W=canvas.width, H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+    // grid lines
+    ctx.strokeStyle='rgba(224,112,134,0.10)'; ctx.lineWidth=1;
+    for(let r=0;r<=rows;r++){ ctx.beginPath(); ctx.moveTo(20,20+r*(H-40)/rows); ctx.lineTo(W-20,20+r*(H-40)/rows); ctx.stroke(); }
+    for(let c=0;c<=cols;c++){ ctx.beginPath(); ctx.moveTo(20+c*(W-40)/cols,20); ctx.lineTo(20+c*(W-40)/cols,H-20); ctx.stroke(); }
+
+    // ghost of solved pieces
+    if(completed===pieces.length){
+      drawSakuraScene(ctx,20,20,W-40,H-40,42);
+    }
+
+    pieces.forEach(p=>{
+      const isDrag = p===dragged;
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      if(isDrag){ ctx.shadowColor='rgba(224,112,134,0.2)'; ctx.shadowBlur=10; ctx.shadowOffsetY=3; }
+      else if(!p.done){ ctx.shadowColor='rgba(0,0,0,0.04)'; ctx.shadowBlur=3; ctx.shadowOffsetY=2; }
+
+      // slot highlight if nearly there
+      if(!p.done && Math.abs(p.x-p.tx)<35 && Math.abs(p.y-p.ty)<35){
+        ctx.fillStyle='rgba(224,112,134,0.08)';
+        ctx.beginPath(); ctx.roundRect(-p.pw/2-2,-p.ph/2-2,p.pw+4,p.ph+4,5); ctx.fill();
+      }
+
+      // piece bg
+      ctx.fillStyle='#fff';
+      ctx.beginPath(); ctx.roundRect(-p.pw/2,-p.ph/2,p.pw,p.ph,4); ctx.fill();
+      ctx.shadowColor='transparent';
+
+      // draw the scene portion clipped to this piece
+      if(!isDrag) ctx.globalAlpha = p.done ? 1 : 0.85;
+      const offX = 20 + p.cr*(W-40)/cols + (W-40)/cols/2 - (p.x);
+      const offY = 20 + p.rr*(H-40)/rows + (H-40)/rows/2 - (p.y);
+      ctx.save();
+      ctx.beginPath(); ctx.roundRect(-p.pw/2+2,-p.ph/2+2,p.pw-4,p.ph-4,3); ctx.clip();
+      drawSakuraScene(ctx, offX + p.pw/2 - (W-40)/cols/2, offY + p.ph/2 - (H-40)/rows/2, W-40, H-40, 42);
+      ctx.restore();
+      ctx.globalAlpha = 1;
+
+      // subtle border
+      ctx.strokeStyle = p.done ? '#e07086' : 'rgba(224,112,134,0.2)';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.roundRect(-p.pw/2+1.5,-p.ph/2+1.5,p.pw-3,p.ph-3,3); ctx.stroke();
+
+      ctx.restore();
+    });
+
+    ctx.fillStyle='rgba(224,112,134,0.5)'; ctx.font='600 12px DM Sans, sans-serif'; ctx.textAlign='center';
+    ctx.fillText(msg, W/2, 14);
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── SCRAPBOOKING 📖 Illustrated Polaroids ──
+(function(){
+  const canvas = document.getElementById('scrapCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = canvas.parentElement.clientWidth; canvas.height = 180; }
+  resize(); window.addEventListener('resize', resize);
+
+  let photos=[];
+  let dragged=null;
+  let dox=0, doy=0;
+
+  function drawPolaroidContent(ctx2, type, w, h, img){
+    const iw = w-6, ih = h-10;
+    ctx2.save(); ctx2.beginPath(); ctx2.roundRect(-iw/2,-ih/2,iw,ih,2); ctx2.clip();
+
+    if (type === 'upload' && img) {
+      ctx2.drawImage(img, -iw/2, -ih/2, iw, ih);
+      ctx2.restore();
+      return;
+    }
+
+    switch(type){
+      case 'sakura':
+        ctx2.fillStyle='#ffe4ec'; ctx2.fillRect(-iw/2,-ih/2,iw,ih);
+        ctx2.fillStyle='#ffb3c6'; for(let i=0;i<5;i++) ctx2.beginPath(), ctx2.arc(-5+i*5,-2,4,0,Math.PI*2), ctx2.fill();
+        ctx2.fillStyle='#e07086'; ctx2.beginPath(); ctx2.arc(0,0,2.2,0,Math.PI*2); ctx2.fill();
+        ctx2.strokeStyle='#8B5A2B'; ctx2.lineWidth=1; ctx2.beginPath(); ctx2.moveTo(0,0); ctx2.lineTo(0,12); ctx2.stroke();
+        break;
+      case 'tokyo':
+        ctx2.fillStyle='#ffd1dc'; ctx2.fillRect(-iw/2,-ih/2,iw,ih);
+        ctx2.fillStyle='#e07086'; ctx2.beginPath(); ctx2.roundRect(-4,-10,8,18,1); ctx2.fill(); // tower
+        ctx2.fillStyle='#e87a93'; ctx2.beginPath(); ctx2.moveTo(-7,-5); ctx2.lineTo(7,-5); ctx2.lineTo(0,-14); ctx2.fill();
+        ctx2.fillStyle='#fff5cc'; ctx2.arc(6,-8,2.5,0,Math.PI*2); ctx2.fill();
+        break;
+      case 'tennis':
+        ctx2.fillStyle='#e8f5e0'; ctx2.fillRect(-iw/2,-ih/2,iw,ih);
+        ctx2.strokeStyle='#4a7c59'; ctx2.lineWidth=0.8; ctx2.strokeRect(-6,-6,12,16);
+        ctx2.fillStyle='#d9c34a'; ctx2.beginPath(); ctx2.arc(0,0,3.5,0,Math.PI*2); ctx2.fill();
+        break;
+      case 'mountain':
+        ctx2.fillStyle='#e0f0ff'; ctx2.fillRect(-iw/2,-ih/2,iw,ih);
+        ctx2.fillStyle='#c8dce8'; ctx2.beginPath(); ctx2.moveTo(-10,8); ctx2.lineTo(0,-8); ctx2.lineTo(10,8); ctx2.fill();
+        ctx2.fillStyle='#fff'; ctx2.beginPath(); ctx2.moveTo(-4,-6); ctx2.lineTo(0,-8); ctx2.lineTo(4,-6); ctx2.fill();
+        break;
+      case 'sunset':
+        const g=ctx2.createLinearGradient(0,-ih/2,0,ih/2);
+        g.addColorStop(0,'#ffe0b3'); g.addColorStop(0.5,'#ffb3ba'); g.addColorStop(1,'#fddde4'); ctx2.fillStyle=g; ctx2.fillRect(-iw/2,-ih/2,iw,ih);
+        ctx2.fillStyle='#fff5cc'; ctx2.beginPath(); ctx2.arc(-2,2,4,0,Math.PI*2); ctx2.fill();
+        for(let i=0;i<3;i++){ ctx2.fillStyle='rgba(255,255,255,0.5)'; ctx2.beginPath(); ctx2.ellipse(-8+i*6,8,8,2,0,0,Math.PI*2); ctx2.fill(); }
+        break;
+      case 'heart':
+        ctx2.fillStyle='#fff0f3'; ctx2.fillRect(-iw/2,-ih/2,iw,ih);
+        ctx2.fillStyle='#f8a5b8'; ctx2.beginPath();
+        ctx2.moveTo(0,3); ctx2.bezierCurveTo(0,3, -7,-4, -7,-7); ctx2.bezierCurveTo(-7,-11, -3,-11, 0,-7);
+        ctx2.bezierCurveTo(3,-11, 7,-11, 7,-7); ctx2.bezierCurveTo(7,-4, 0,3, 0,3); ctx2.fill();
+        break;
+      case 'cafe':
+        ctx2.fillStyle='#fdf3e0'; ctx2.fillRect(-iw/2,-ih/2,iw,ih);
+        ctx2.fillStyle='#8B5A2B'; ctx2.beginPath(); ctx2.arc(0,3,5,0,Math.PI*2); ctx2.fill();
+        ctx2.fillStyle='#ffe4c4'; ctx2.beginPath(); ctx2.arc(0,2,4.8,0,Math.PI*2); ctx2.fill();
+        ctx2.fillStyle='#e07086'; ctx2.beginPath(); ctx2.arc(-2,1,2,0,Math.PI*2); ctx2.fill(); // latte art
+        break;
+    }
+    ctx2.restore();
+  }
+
+  function spawn(){
+    photos=[];
+    const W=canvas.width, H=canvas.height;
+    const types=['sakura','tokyo','tennis','mountain','sunset','heart','cafe'];
+    const caps=['sakura days','tokyo tower','match point','hike views','golden hour','from the heart','coffee break'];
+    for(let i=0;i<7;i++){
+      photos.push({
+        x: 20 + Math.random()*(W-60), y: 24 + Math.random()*(H-68),
+        w: 34 + Math.random()*16, h: 44 + Math.random()*14,
+        rot: Math.random()*18-9, type: types[i], cap: caps[i]
+      });
+    }
+  }
+  spawn();
+
+  // Upload polaroid handler
+  document.getElementById('scrapFileInput').addEventListener('change', function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const img = new Image();
+      img.onload = function(){
+        const W = canvas.width, H = canvas.height;
+        photos.push({
+          x: 30 + Math.random()*(W-100), y: 28 + Math.random()*(H-90),
+          w: 40 + Math.random()*16, h: 52 + Math.random()*14,
+          rot: Math.random()*16-8, type:'upload', cap: 'memory', img: img
+        });
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  });
+
+  function getPos(e){
+    const r=canvas.getBoundingClientRect();
+    const cx=e.touches?e.touches[0].clientX:e.clientX;
+    const cy=e.touches?e.touches[0].clientY:e.clientY;
+    return{x:cx-r.left,y:cy-r.top};
+  }
+  function hit(pos){
+    for(let i=photos.length-1;i>=0;i--){
+      const p=photos[i]; const pad=4;
+      if(pos.x>=p.x-p.w/2-pad && pos.x<=p.x+p.w/2+pad && pos.y>=p.y-p.h/2-pad-6 && pos.y<=p.y+p.h/2+pad+6) return p;
+    }
+    return null;
+  }
+  function onDown(e){ const pos=getPos(e); const h=hit(pos); if(h){ dragged=h; dox=pos.x-h.x; doy=pos.y-h.y; photos.splice(photos.indexOf(h),1); photos.push(h); } }
+  function onMove(e){ if(!dragged)return; const pos=getPos(e); dragged.x=pos.x-dox; dragged.y=pos.y-doy; }
+  function onUp(){ dragged=null; }
+  canvas.addEventListener('mousedown',onDown);
+  canvas.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+  canvas.addEventListener('touchstart',e=>onDown(e),{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();onMove(e);},{passive:false});
+  canvas.addEventListener('touchend',onUp);
+
+  function drawBg(W,H){
+    const bg=ctx.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#fdf7fa'); bg.addColorStop(1,'#fff8f9'); ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+    // subtle pattern
+    ctx.fillStyle='rgba(224,112,134,0.03)';
+    for(let i=0;i<W;i+=22) for(let j=0;j<H;j+=22) ctx.fillRect(i+2,j+2,1,1);
+  }
+
+  function draw(){
+    const W=canvas.width, H=canvas.height;
+    drawBg(W,H);
+    ctx.fillStyle='rgba(224,112,134,0.35)'; ctx.font='500 12px DM Sans, sans-serif'; ctx.textAlign='center';
+    ctx.fillText('Drag photos to arrange your scrapbook', W/2, 14);
+
+    photos.forEach(p=>{
+      const isDrag = p===dragged;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      if(isDrag){ ctx.shadowColor='rgba(224,112,134,0.18)'; ctx.shadowBlur=14; ctx.shadowOffsetY=5; }
+      else { ctx.shadowColor='rgba(0,0,0,0.05)'; ctx.shadowBlur=5; ctx.shadowOffsetY=2; }
+
+      // polaroid white border
+      ctx.fillStyle='#fff';
+      const bw=p.w+8, bh=p.h+14;
+      ctx.beginPath(); ctx.roundRect(-bw/2,-bh/2,bw,bh,2); ctx.fill();
+      ctx.shadowColor='transparent';
+
+      // inner illustrated photo
+      drawPolaroidContent(ctx, p.type, p.w, p.h, p.img);
+
+      // caption
+      ctx.fillStyle='rgba(61,42,46,0.35)';
+      ctx.font='500 8px DM Sans, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+      ctx.fillText(p.cap, 0, bh/2 - 2);
+
+      // washi tape top
+      if(!isDrag){
+        ctx.save(); ctx.rotate(-p.rot*Math.PI/180);
+        ctx.fillStyle='rgba(255,255,255,0.82)';
+        ctx.beginPath(); ctx.roundRect(-8, -bh/2 - 3, 16, 7, 1); ctx.fill();
+        // tape stripe
+        ctx.fillStyle='rgba(224,112,134,0.25)';
+        ctx.fillRect(-7, -bh/2 - 1, 14, 1);
+        ctx.restore();
+      }
+
+      ctx.restore();
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
 </script>
 
 </body>
